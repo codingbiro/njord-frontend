@@ -5,7 +5,6 @@ interface ICredentials {
   password: string;
 }
 
-
 export interface IUser {
   id: number;
   email: string;  

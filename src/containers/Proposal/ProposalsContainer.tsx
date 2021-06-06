@@ -1,12 +1,13 @@
 import React from 'react';
-import { Box, Paper, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { Switch, Redirect, Route, RouteComponentProps } from 'react-router-dom';
 
+import DefaultContainer from 'src/containers/Default';
 import ProposalsPage from './ProposalsPage';
 
 function ProposalsContainer({ match }: RouteComponentProps) {
-  return(
-    <Paper>
+  return (
+    <DefaultContainer>
       <Switch>
         <Route path={`${match.path}/`} component={ProposalsPage} />
         <Redirect to={`${match.path}/`} />
@@ -16,7 +17,7 @@ function ProposalsContainer({ match }: RouteComponentProps) {
           Proposals Containers
         </Typography>
       </Box>
-    </Paper>
+    </DefaultContainer>
   );
 }
 

@@ -1,83 +1,122 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Typography } from '@material-ui/core';
-import { Formik } from 'formik';
+import { useReactiveVar } from '@apollo/client';
+import { Box, Button, experimentalStyled as styled, Paper, TextField, Typography } from '@material-ui/core';
+import { Form, Formik } from 'formik';
 
 import { login } from 'src/requests/auth';
-import userVar from 'src/utils/cache';
-import { useReactiveVar } from '@apollo/client';
+import { userVar } from 'src/utils/cache';
+import Css from 'src/utils/css';
+import Logo from 'src/components/Logo';
+
+const containerStyles: Css = {
+  backgroundColor: 'rgba(255, 255, 255, 0.75)',
+  height: 'max-content',
+  alignSelf: 'center',
+  textAlign: 'center',
+};
+
+const titleStyles: Css = {
+  color: '#1b2a49',
+  paddingTop: 3,
+  fontSize: '30px',
+};
+
+const buttonStyles: Css = {
+  backgroundColor: '#f6cc51',
+  textTransform: 'none',
+  borderRadius: '0',
+  marginTop: 3,
+  fontSize: '25px',
+  '&:hover': {
+    backgroundColor: '#bd9110',
+  },
+  '&:focus': {
+    boxShadow: '0 0 0 0.2rem rgb(0, 0, 0)',
+  },
+};
+
+const StyledForm = styled(Form)(() => ({
+  padding: '24px',
+  marginTop: '12px',
+  minWidth: '300px',
+  display: 'flex',
+  flexDirection: 'column',
+  " .MuiInput-input": {
+    padding: "4px",
+  }
+}));
 
 function LoginPage() {
+  const [error, setError] = useState('');
   const history = useHistory();
   const user = useReactiveVar(userVar);
 
   useEffect(() => user && history.push("/proposals"), [history, user]);
 
   return (
-    <div>
-      <Typography variant="body1">
-        Login
+    <Paper square sx={containerStyles}>
+      <Box p={3} justifyContent="center" display="flex" alignContent="center" bgcolor="#1b2a49">
+        <Logo />
+      </Box>
+      <Typography sx={titleStyles}>
+        Company Login
       </Typography>
       <Formik
        initialValues={{ email: '', password: '' }}
-       validate={values => {
-         const errors: Record<string, unknown> = {};
-         if (!values.email) {
-           errors.email = 'Required';
-         }
-         if (!values.password) {
-          errors.password = 'Required';
-        }
-         return errors;
-       }}
-       onSubmit={async (values, { setErrors, setSubmitting }) => {
+       onSubmit={async (values, { setSubmitting }) => {
         try {
+          if (!values.email || !values.password) {
+            throw Error('Invalid email or password.');
+          }
           const response = await login({ email: values.email, password: values.password });
           if (!response) {
-            throw Error('Unable to load user data');
+            throw Error('Invalid email or password.');
           }
           userVar({ id: response.id, email: response.email });
           history.push("/proposals");
         } catch (e) {
           setSubmitting(false);
-          console.log(e);
-          setErrors({ password: 'Incorrect' });
+          setError(e.message);
         }
        }}
      >
        {({
          values,
-         errors,
-         touched,
          handleChange,
          handleBlur,
          handleSubmit,
          isSubmitting,
        }) => (
-         <form onSubmit={handleSubmit}>
-           <input
+         <StyledForm onSubmit={handleSubmit}>
+           <TextField
+             label="Email"
+             variant="standard"
              type="email"
              name="email"
              onChange={handleChange}
              onBlur={handleBlur}
              value={values.email}
+             required
            />
-           {errors.email && touched.email && errors.email}
-           <input
+           <TextField
+             label="Password"
+             variant="standard"
              type="password"
              name="password"
              onChange={handleChange}
              onBlur={handleBlur}
              value={values.password}
+             required
            />
-           {errors.password && touched.password && errors.password}
-           <button type="submit" disabled={isSubmitting}>
-             Submit
-           </button>
-         </form>
+           <Button variant="contained" type="submit" disabled={isSubmitting} sx={buttonStyles}>
+             Sign In
+           </Button>
+           {error && <Typography color="error" sx={{ paddingTop: 2 }}>{error}</Typography>}
+         </StyledForm>
        )}
      </Formik>
-    </div>
+    </Paper>
   );
 }
 

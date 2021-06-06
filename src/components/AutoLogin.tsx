@@ -3,7 +3,7 @@ import { Typography } from '@material-ui/core';
 
 import WithChildren from 'src/utils/withChildren';
 import { whoami } from 'src/requests/auth';
-import userVar from 'src/utils/cache';
+import { userVar } from 'src/utils/cache';
 
 function AutoLogIn({ children }: WithChildren) {
   const skip = window.location.pathname.startsWith('/auth');

@@ -2,6 +2,9 @@ import { ReactiveVar, makeVar } from "@apollo/client";
 
 import { IUser } from "src/requests/auth";
 
-const userVar: ReactiveVar<IUser|undefined> = makeVar<IUser|undefined>(undefined);
+export const userVar: ReactiveVar<IUser|undefined> = makeVar<IUser|undefined>(undefined);
 
-export default userVar;
+export const hideNavigationVar: ReactiveVar<boolean> = makeVar<boolean>(false);
+
+export const isDrawerOpenVar: ReactiveVar<boolean> = makeVar<boolean>(false);
+
