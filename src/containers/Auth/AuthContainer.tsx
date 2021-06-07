@@ -7,7 +7,7 @@ import DefaultContainer from 'src/containers/Default';
 import LoginPage from './LoginPage';
 
 const containerStyles: Css = {
-  height: '100vh',
+  height: '100%',
   width: '100%',
   display:'flex',
   alignContent:'center',

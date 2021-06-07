@@ -73,7 +73,9 @@ function LoginPage() {
           if (!response) {
             throw Error('Invalid email or password.');
           }
-          userVar({ id: response.id, email: response.email });
+          const { token, ...userData } = response.data;
+          localStorage.setItem('uToken', token);
+          userVar(userData);
           history.push("/proposals");
         } catch (e) {
           setSubmitting(false);
@@ -109,7 +111,7 @@ function LoginPage() {
              value={values.password}
              required
            />
-           <Button variant="contained" type="submit" disabled={isSubmitting} sx={buttonStyles}>
+           <Button variant="contained" type="submit" disabled={isSubmitting} sx={buttonStyles} disableElevation>
              Sign In
            </Button>
            {error && <Typography color="error" sx={{ paddingTop: 2 }}>{error}</Typography>}

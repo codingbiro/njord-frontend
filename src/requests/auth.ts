@@ -8,32 +8,32 @@ interface ICredentials {
 export interface IUser {
   id: number;
   email: string;  
+  name: string;  
 }
 
 interface ILoginResponse extends IUser {
   token: string;
 }
 
-export async function login(credentials: ICredentials): Promise<ILoginResponse | undefined> {
+interface Response<T> {
+  data: T;
+  headers: Record<string, string>;
+}
+
+export async function login(credentials: ICredentials): Promise<Response<ILoginResponse> | undefined> {
   try {
     const response = await axios.post<ILoginResponse>(`${process.env.REACT_APP_API_ROOT}/auth/login`, credentials);
-    if (response.data) localStorage.setItem('uToken', response.data.token);
-    return response.data;
+    return response;
   } catch (e) {
     console.log(e);
     return undefined;
   }
 }
-  
-export function logout(): void {
-  localStorage.removeItem('uToken');
-}
 
-export async function whoami(): Promise<IUser | undefined> {
+export async function whoami(): Promise<Response<IUser> | undefined> {
   try {
     const response = await axios.get<IUser>(`${process.env.REACT_APP_API_ROOT}/auth/whoami`, { headers: {'Authorization': `Bearer ${localStorage.getItem('uToken')}`}});
-    if (response.headers['authorization']) localStorage.setItem('uToken', response.headers['authorization']);
-    return response.data;
+    return response;
   } catch (e) {
     console.log(e);
     return undefined;

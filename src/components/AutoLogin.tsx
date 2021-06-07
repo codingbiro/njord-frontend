@@ -16,7 +16,9 @@ function AutoLogIn({ children }: WithChildren) {
     async function checkLoginStatus() {
       try {
         const response = await whoami();
-        userVar(response);
+        if (!response) throw Error('Auth failed');
+        if (response.headers['authorization']) localStorage.setItem('uToken', response.headers['authorization']);
+        userVar(response.data);
       } catch (e) {
         userVar(undefined);
       }
