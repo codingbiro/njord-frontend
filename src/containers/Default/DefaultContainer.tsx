@@ -22,7 +22,7 @@ interface IProps {
   hideNavigation?: boolean;
 }
 
-function DefaultContainer({ children, hideNavigation }: WithChildren<IProps>) {
+export default function DefaultContainer({ children, hideNavigation }: WithChildren<IProps>) {
   return (
     <Box sx={containerStyles}>
       <CssBaseline />
@@ -34,5 +34,3 @@ function DefaultContainer({ children, hideNavigation }: WithChildren<IProps>) {
     </Box>
   );
 }
-
-export default DefaultContainer;

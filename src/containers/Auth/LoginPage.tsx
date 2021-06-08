@@ -42,17 +42,17 @@ const StyledForm = styled(Form)(() => ({
   minWidth: '300px',
   display: 'flex',
   flexDirection: 'column',
-  " .MuiInput-input": {
-    padding: "4px",
+  '& .MuiInput-input': {
+    padding: '4px',
   }
 }));
 
-function LoginPage() {
+export default function LoginPage() {
   const [error, setError] = useState('');
   const history = useHistory();
   const user = useReactiveVar(userVar);
 
-  useEffect(() => user && history.push("/proposals"), [history, user]);
+  useEffect(() => user && history.push('/jobs'), [history, user]);
 
   return (
     <Paper square sx={containerStyles}>
@@ -76,7 +76,7 @@ function LoginPage() {
           const { token, ...userData } = response.data;
           localStorage.setItem('uToken', token);
           userVar(userData);
-          history.push("/proposals");
+          history.push('/jobs');
         } catch (e) {
           setSubmitting(false);
           setError(e.message);
@@ -121,5 +121,3 @@ function LoginPage() {
     </Paper>
   );
 }
-
-export default LoginPage;

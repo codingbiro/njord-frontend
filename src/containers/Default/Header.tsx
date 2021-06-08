@@ -2,12 +2,23 @@ import React, { useState } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { AppBar,  Box,  IconButton,  Toolbar, Typography } from '@material-ui/core';
-
-import { isDrawerOpenVar, userVar } from 'src/utils/cache';
-import { DownArrowIcon, MenuIcon, UserIcon } from 'src/components/icons';
 import { useReactiveVar } from '@apollo/client';
 
+import { isDrawerOpenVar, userVar } from 'src/utils/cache';
+import Css from 'src/utils/css';
+import { DownArrowIcon, MenuIcon, UserIcon } from 'src/components/icons';
+
 export const HEADER_HEIGHT = 64;
+
+const userNameStyles: Css = {
+  marginLeft: 1,
+  fontSize: '20px',
+};
+
+const appBarStyles: Css = {
+  zIndex: 10,
+  backgroundColor: '#324e88',
+};
 
 export default function Header() {
   const userMenuId = 'user-settings-menu';
@@ -36,20 +47,20 @@ export default function Header() {
 
   return (
     <>
-      <AppBar position="fixed" sx={{ zIndex: 10, backgroundColor: '#324e88' }}>
+      <AppBar position="fixed" sx={appBarStyles}>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open or close drawer"
             onClick={handleDrawerOpenClose}
             edge="start"
-            sx={{ mr: 2 }}
+            sx={{ marginRight: 2 }}
           >
             <MenuIcon />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <UserIcon />
-          <Typography variant="body1" sx={{ marginLeft: 1 }}>{user?.name}</Typography>
+          <Typography variant="body1" sx={userNameStyles}>{user?.name}</Typography>
           <IconButton
             color="inherit"
             aria-label="show more"
@@ -69,7 +80,7 @@ export default function Header() {
         onClose={handleUserMenuClose}
         open={userMenuOpen}
         anchorOrigin={{
-          vertical: 'top',
+          vertical: 50,
           horizontal: 'right',
         }}
         transformOrigin={{

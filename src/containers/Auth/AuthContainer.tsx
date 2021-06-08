@@ -17,7 +17,7 @@ const containerStyles: Css = {
   backgroundSize: 'cover',
 }
 
-function AuthContainer({ match }: RouteComponentProps) {  
+export default function AuthContainer({ match }: RouteComponentProps) {  
   return (
     <DefaultContainer hideNavigation>
       <Box sx={containerStyles}>
@@ -29,5 +29,3 @@ function AuthContainer({ match }: RouteComponentProps) {
     </DefaultContainer>
   );
 }
-
-export default AuthContainer;
