@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography } from '@material-ui/core';
 
 import WithChildren from 'src/utils/withChildren';
@@ -17,7 +17,7 @@ function AutoLogIn({ children }: WithChildren) {
       try {
         const response = await whoami();
         if (!response) throw Error('Auth failed');
-        if (response.headers['authorization']) localStorage.setItem('uToken', response.headers['authorization']);
+        if (response.headers.authorization) localStorage.setItem('uToken', response.headers.authorization);
         userVar(response.data);
       } catch (e) {
         userVar(undefined);

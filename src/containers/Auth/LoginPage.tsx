@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useReactiveVar } from '@apollo/client';
-import { Box, Button, experimentalStyled as styled, Paper, TextField, Typography } from '@material-ui/core';
+import {
+  Box, Button, experimentalStyled as styled, Paper, TextField, Typography,
+} from '@material-ui/core';
 import { Form, Formik } from 'formik';
 
 import { login } from 'src/requests/auth';
@@ -44,7 +46,7 @@ const StyledForm = styled(Form)(() => ({
   flexDirection: 'column',
   '& .MuiInput-input': {
     padding: '4px',
-  }
+  },
 }));
 
 export default function LoginPage() {
@@ -63,61 +65,61 @@ export default function LoginPage() {
         Company Login
       </Typography>
       <Formik
-       initialValues={{ email: '', password: '' }}
-       onSubmit={async (values, { setSubmitting }) => {
-        try {
-          if (!values.email || !values.password) {
-            throw Error('Invalid email or password.');
+        initialValues={{ email: '', password: '' }}
+        onSubmit={async (values, { setSubmitting }) => {
+          try {
+            if (!values.email || !values.password) {
+              throw Error('Invalid email or password.');
+            }
+            const response = await login({ email: values.email, password: values.password });
+            if (!response) {
+              throw Error('Invalid email or password.');
+            }
+            const { token, ...userData } = response.data;
+            localStorage.setItem('uToken', token);
+            userVar(userData);
+            history.push('/jobs');
+          } catch (e) {
+            setSubmitting(false);
+            setError(e.message);
           }
-          const response = await login({ email: values.email, password: values.password });
-          if (!response) {
-            throw Error('Invalid email or password.');
-          }
-          const { token, ...userData } = response.data;
-          localStorage.setItem('uToken', token);
-          userVar(userData);
-          history.push('/jobs');
-        } catch (e) {
-          setSubmitting(false);
-          setError(e.message);
-        }
-       }}
-     >
-       {({
-         values,
-         handleChange,
-         handleBlur,
-         handleSubmit,
-         isSubmitting,
-       }) => (
-         <StyledForm onSubmit={handleSubmit}>
-           <TextField
-             label="Email"
-             variant="standard"
-             type="email"
-             name="email"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.email}
-             required
-           />
-           <TextField
-             label="Password"
-             variant="standard"
-             type="password"
-             name="password"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.password}
-             required
-           />
-           <Button variant="contained" type="submit" disabled={isSubmitting} sx={buttonStyles} disableElevation>
-             Sign In
-           </Button>
-           {error && <Typography color="error" sx={{ paddingTop: 2 }}>{error}</Typography>}
-         </StyledForm>
-       )}
-     </Formik>
+        }}
+      >
+        {({
+          values,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+        }) => (
+          <StyledForm onSubmit={handleSubmit}>
+            <TextField
+              label="Email"
+              variant="standard"
+              type="email"
+              name="email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+              required
+            />
+            <TextField
+              label="Password"
+              variant="standard"
+              type="password"
+              name="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+              required
+            />
+            <Button variant="contained" type="submit" disabled={isSubmitting} sx={buttonStyles} disableElevation>
+              Sign In
+            </Button>
+            {error && <Typography color="error" sx={{ paddingTop: 2 }}>{error}</Typography>}
+          </StyledForm>
+        )}
+      </Formik>
     </Paper>
   );
 }

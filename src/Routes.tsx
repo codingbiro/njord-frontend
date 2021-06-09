@@ -17,4 +17,4 @@ export default function Routes() {
       <Redirect to="/auth" />
     </Switch>
   );
-};
+}

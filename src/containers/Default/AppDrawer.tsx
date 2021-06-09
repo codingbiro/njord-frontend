@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box, Drawer, List, ListItem, Toolbar, Typography } from '@material-ui/core';
+import {
+  Box, Drawer, List, ListItem, Toolbar, Typography,
+} from '@material-ui/core';
 import { useReactiveVar } from '@apollo/client';
 
 import { isDrawerOpenVar } from 'src/utils/cache';
@@ -7,7 +9,7 @@ import Css from 'src/utils/css';
 
 export const DRAWER_WIDTH = 240;
 
-const isActive = (path: string) => window.location.pathname.startsWith(path.toLowerCase());
+const isPathActive = (path: string) => window.location.pathname.startsWith(path.toLowerCase());
 
 const listItemStyles: (isActive: boolean) => Css = (isActive) => ({
   backgroundColor: isActive ? '#91b2d0' : undefined,
@@ -15,7 +17,7 @@ const listItemStyles: (isActive: boolean) => Css = (isActive) => ({
   '&:hover': {
     backgroundColor: '#bdd0e2',
     color: '#1b2a49',
-  }
+  },
 });
 
 const listItemTextStyles: Css = {
@@ -28,22 +30,22 @@ const drawerStyles: Css = {
   backgroundColor: 'transparent',
   width: DRAWER_WIDTH,
   flexShrink: 0,
-  [`& .MuiDrawer-paper`]: {
+  '& .MuiDrawer-paper': {
     width: DRAWER_WIDTH,
     boxSizing: 'border-box',
     backgroundColor: '#1b2a49',
   },
 };
 
-const drawerLinks = ['Dashboard', 'Job Ads'] as const;;
+const drawerLinks = ['Dashboard', 'Job Ads'] as const;
 
 const drawerLinkMap: Record<typeof drawerLinks[number], string> = {
-  'Dashboard': 'dashboard',
+  Dashboard: 'dashboard',
   'Job Ads': 'jobs',
 };
 
 export default function AppDrawer() {
-  const isDrawerOpen = useReactiveVar(isDrawerOpenVar)
+  const isDrawerOpen = useReactiveVar(isDrawerOpenVar);
 
   return (
     <Drawer
@@ -55,7 +57,7 @@ export default function AppDrawer() {
       <Box sx={{ overflow: 'auto' }}>
         <List>
           {drawerLinks.map((text) => (
-            <ListItem button key={text} sx={listItemStyles(isActive(`/${drawerLinkMap[text]}`))}>
+            <ListItem button key={text} sx={listItemStyles(isPathActive(`/${drawerLinkMap[text]}`))}>
               <Typography sx={listItemTextStyles}>{text}</Typography>
             </ListItem>
           ))}

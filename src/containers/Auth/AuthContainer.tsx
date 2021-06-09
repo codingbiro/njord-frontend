@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
-import { Switch, Redirect, Route, RouteComponentProps } from 'react-router-dom';
+import {
+  Switch, Redirect, Route, RouteComponentProps,
+} from 'react-router-dom';
 
 import Css from 'src/utils/css';
 import DefaultContainer from 'src/containers/Default';
@@ -9,15 +11,15 @@ import LoginPage from './LoginPage';
 const containerStyles: Css = {
   height: '100%',
   width: '100%',
-  display:'flex',
-  alignContent:'center',
-  justifyContent:'center',
+  display: 'flex',
+  alignContent: 'center',
+  justifyContent: 'center',
   backgroundImage: 'url(/authBackground.png)',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
-}
+};
 
-export default function AuthContainer({ match }: RouteComponentProps) {  
+export default function AuthContainer({ match }: RouteComponentProps) {
   return (
     <DefaultContainer hideNavigation>
       <Box sx={containerStyles}>

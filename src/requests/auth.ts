@@ -7,8 +7,8 @@ interface ICredentials {
 
 export interface IUser {
   id: number;
-  email: string;  
-  name: string;  
+  email: string;
+  name: string;
 }
 
 interface ILoginResponse extends IUser {
@@ -31,9 +31,11 @@ export async function login(credentials: ICredentials): Promise<Response<ILoginR
 
 export async function whoami(): Promise<Response<IUser> | undefined> {
   try {
-    const response = await axios.get<IUser>(`${process.env.REACT_APP_API_ROOT}/auth/whoami`, { headers: {'Authorization': `Bearer ${localStorage.getItem('uToken')}`}});
+    const response = await axios.get<IUser>(`${process.env.REACT_APP_API_ROOT}/auth/whoami`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('uToken')}` },
+    });
     return response;
   } catch (e) {
     return undefined;
-  }  
+  }
 }

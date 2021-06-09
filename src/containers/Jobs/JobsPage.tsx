@@ -15,7 +15,9 @@ import {
 } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 
-import { IJobsQuery, IJobsQueryVariables, ILocationsQuery, jobsQuery, locationsQuery } from 'src/requests/job';
+import {
+  IJobsQuery, IJobsQueryVariables, ILocationsQuery, jobsQuery, locationsQuery,
+} from 'src/requests/job';
 import formatStringDate from 'src/utils/formatStringDate';
 import Css from 'src/utils/css';
 import JobMenu from './JobMenu';
@@ -58,28 +60,30 @@ const selectStyles: Css = {
 
 const rowStyles: Css = {
   '&:last-child td, &:last-child th': {
-    border: 0
+    border: 0,
   },
 };
 
 export default function JobsPage() {
   const [rejected, setRejected] = useState(false);
   const [location, setLocation] = useState('');
-  const { data, loading } =
-    useQuery<IJobsQuery, IJobsQueryVariables>(jobsQuery, { variables: { rejected, location }, pollInterval });
-  const { data: locationsData, loading: locationsLoading } =
-    useQuery<ILocationsQuery>(locationsQuery, { pollInterval });
+  const { data, loading } = useQuery<IJobsQuery, IJobsQueryVariables>(jobsQuery, {
+    variables: { rejected, location }, pollInterval,
+  });
+  const { data: locationsData, loading: locationsLoading } = useQuery<ILocationsQuery>(locationsQuery, {
+    pollInterval,
+  });
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setLocation(event.target.value as string);
   };
 
   const renderSelectedValue = (value: string) => {
-    if (!value) return <span>Location</span>
+    if (!value) return <span>Location</span>;
     return <span>{value}</span>;
   };
 
-  if (loading || !data || locationsLoading || !locationsData) return <LinearProgress />
+  if (loading || !data || locationsLoading || !locationsData) return <LinearProgress />;
 
   return (
     <Box display="flex" alignItems="center" p={5} flexDirection="column">
@@ -87,16 +91,16 @@ export default function JobsPage() {
         <Select
           value={location}
           onChange={handleChange}
-          displayEmpty 
+          displayEmpty
           sx={selectStyles}
           renderValue={renderSelectedValue}
         >
           <MenuItem value="">
             <em>All</em>
           </MenuItem>
-          {locationsData.locations.map(({ boatLocation }) =>
+          {locationsData.locations.map(({ boatLocation }) => (
             <MenuItem key={boatLocation} value={boatLocation}>{boatLocation}</MenuItem>
-          )}
+          ))}
         </Select>
       </Box>
       <TableContainer component={Paper} sx={{ maxWidth: '1200px' }}>

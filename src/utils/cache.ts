@@ -7,4 +7,3 @@ export const userVar: ReactiveVar<IUser|undefined> = makeVar<IUser|undefined>(un
 export const hideNavigationVar: ReactiveVar<boolean> = makeVar<boolean>(false);
 
 export const isDrawerOpenVar: ReactiveVar<boolean> = makeVar<boolean>(false);
-

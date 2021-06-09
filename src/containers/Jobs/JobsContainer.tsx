@@ -1,5 +1,7 @@
 import React from 'react';
-import { Switch, Redirect, Route, RouteComponentProps } from 'react-router-dom';
+import {
+  Switch, Redirect, Route, RouteComponentProps,
+} from 'react-router-dom';
 
 import DefaultContainer from 'src/containers/Default';
 import JobsPage from './JobsPage';

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { AppBar,  Box,  IconButton,  Toolbar, Typography } from '@material-ui/core';
+import {
+  AppBar, Box, IconButton, Toolbar, Typography,
+} from '@material-ui/core';
 import { useReactiveVar } from '@apollo/client';
 
 import { isDrawerOpenVar, userVar } from 'src/utils/cache';
@@ -31,14 +33,14 @@ export default function Header() {
   const onLogout = () => {
     localStorage.removeItem('uToken');
     userVar(undefined);
-  }
+  };
   const handleDrawerOpenClose = () => {
     isDrawerOpenVar(!isDrawerOpen);
   };
 
   const handleUserMenuClose = () => {
     setUserMenuAnchorEl(null);
-  }
+  };
   const handleUserMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setUserMenuAnchorEl(event.currentTarget);
   };
