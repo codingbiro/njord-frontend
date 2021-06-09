@@ -8,7 +8,7 @@ The purpose of this project is to showcase some of the popular libraries within 
 
 In the project directory, you can run:
 
-### `npm i` and ### `npm start`
+### `npm i` and `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -31,14 +31,14 @@ For forms, there is a library used called Formik. While this project is not usin
 ### UI components
 For the UI components, this projects uses Material UI's Pre-released version (5x alpha) which uses `@emotion` for styling and seems to be a solid library for the UI.
 
-### Backend communcation
+### Backend communication
 For HTTP requests the app uses `axios` and `apollo-link-rest`. Apollo is mainly used for GraphQL and most of my projects are using it, so giving Apollo a try in the REST world was a nice experience and it works well with TypeScript also.
 
 ### Cache management
 The cache is managed by the **Apollo Client**.
 
 ### Supporting multiple languages
-For supporting multiple languages, **i18next** is being used and is set up currently with one languague (English).
+For supporting multiple languages, **i18next** is being used and is set up currently with one language (English).
 
 ### Environment variables
 For local development, there is an `.env` file in the root directory to maintain the needed variables.
