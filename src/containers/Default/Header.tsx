@@ -43,8 +43,6 @@ export default function Header() {
     setUserMenuAnchorEl(event.currentTarget);
   };
 
-  console.log(user);
-
   return (
     <>
       <AppBar position="fixed" sx={appBarStyles}>

@@ -1,10 +1,5 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
-import DrawerMUI from '@material-ui/core/Drawer';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import { Typography } from '@material-ui/core';
+import { Box, Drawer, List, ListItem, Toolbar, Typography } from '@material-ui/core';
 import { useReactiveVar } from '@apollo/client';
 
 import { isDrawerOpenVar } from 'src/utils/cache';
@@ -40,11 +35,18 @@ const drawerStyles: Css = {
   },
 };
 
-export default function Drawer() {
+const drawerLinks = ['Dashboard', 'Job Ads'] as const;;
+
+const drawerLinkMap: Record<typeof drawerLinks[number], string> = {
+  'Dashboard': 'dashboard',
+  'Job Ads': 'jobs',
+};
+
+export default function AppDrawer() {
   const isDrawerOpen = useReactiveVar(isDrawerOpenVar)
 
   return (
-    <DrawerMUI
+    <Drawer
       variant="persistent"
       open={isDrawerOpen}
       sx={drawerStyles}
@@ -52,13 +54,13 @@ export default function Drawer() {
       <Toolbar />
       <Box sx={{ overflow: 'auto' }}>
         <List>
-          {['Dashboard', 'Jobs'].map((text) => (
-            <ListItem button key={text} sx={listItemStyles(isActive(`/${text}`))}>
+          {drawerLinks.map((text) => (
+            <ListItem button key={text} sx={listItemStyles(isActive(`/${drawerLinkMap[text]}`))}>
               <Typography sx={listItemTextStyles}>{text}</Typography>
             </ListItem>
           ))}
         </List>
       </Box>
-    </DrawerMUI>
+    </Drawer>
   );
 }

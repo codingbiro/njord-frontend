@@ -1,6 +1,6 @@
-import { ReactiveVar, makeVar } from "@apollo/client";
+import { ReactiveVar, makeVar } from '@apollo/client';
 
-import { IUser } from "src/requests/auth";
+import { IUser } from 'src/requests/auth';
 
 export const userVar: ReactiveVar<IUser|undefined> = makeVar<IUser|undefined>(undefined);
 

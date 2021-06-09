@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 interface ICredentials {
   email: string;
@@ -25,7 +25,6 @@ export async function login(credentials: ICredentials): Promise<Response<ILoginR
     const response = await axios.post<ILoginResponse>(`${process.env.REACT_APP_API_ROOT}/auth/login`, credentials);
     return response;
   } catch (e) {
-    console.log(e);
     return undefined;
   }
 }
@@ -35,7 +34,6 @@ export async function whoami(): Promise<Response<IUser> | undefined> {
     const response = await axios.get<IUser>(`${process.env.REACT_APP_API_ROOT}/auth/whoami`, { headers: {'Authorization': `Bearer ${localStorage.getItem('uToken')}`}});
     return response;
   } catch (e) {
-    console.log(e);
     return undefined;
   }  
 }

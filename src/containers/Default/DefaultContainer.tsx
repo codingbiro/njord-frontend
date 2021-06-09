@@ -4,13 +4,12 @@ import { Box, CssBaseline } from '@material-ui/core';
 import WithChildren from 'src/utils/withChildren';
 import Css from 'src/utils/css';
 import Header, { HEADER_HEIGHT } from './Header';
-import Drawer from './Drawer';
+import AppDrawer from './AppDrawer';
 
 const containerStyles: Css = {
-  backgroundColor: "cadetblue",
   height: '100vh',
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
 };
 
 const childrenContainerStyles: (hideNavigation: boolean) => Css = (hideNavigation) => ({
@@ -27,7 +26,7 @@ export default function DefaultContainer({ children, hideNavigation }: WithChild
     <Box sx={containerStyles}>
       <CssBaseline />
       {!hideNavigation && <Header />}
-      {!hideNavigation && <Drawer />}
+      {!hideNavigation && <AppDrawer />}
       <Box sx={childrenContainerStyles(!!hideNavigation)}>
         {children}
       </Box>
