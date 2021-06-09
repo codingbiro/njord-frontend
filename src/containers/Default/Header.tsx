@@ -5,6 +5,7 @@ import {
   AppBar, Box, IconButton, Toolbar, Typography,
 } from '@material-ui/core';
 import { useReactiveVar } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 
 import { isDrawerOpenVar, userVar } from 'src/utils/cache';
 import Css from 'src/utils/css';
@@ -27,6 +28,7 @@ export default function Header() {
   const isDrawerOpen = useReactiveVar(isDrawerOpenVar);
   const user = useReactiveVar(userVar);
   const [userMenuAnchorEl, setUserMenuAnchorEl] = useState<null | HTMLElement>(null);
+  const { t } = useTranslation();
 
   const userMenuOpen = Boolean(userMenuAnchorEl);
 
@@ -88,7 +90,7 @@ export default function Header() {
           horizontal: 'right',
         }}
       >
-        <MenuItem onClick={onLogout}>Logout</MenuItem>
+        <MenuItem onClick={onLogout}>{t('main:logout')}</MenuItem>
       </Menu>
     </>
   );

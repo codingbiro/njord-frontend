@@ -4,6 +4,7 @@ import {
 } from '@material-ui/core';
 import { MoreHoriz } from '@material-ui/icons';
 import { useMutation } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 
 import {
   acceptMutation,
@@ -20,14 +21,16 @@ interface IProps {
 }
 
 export default function JobMenu({ id }: IProps) {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const { t } = useTranslation();
+
   const [acceptJob] = useMutation<IAcceptMutation, IAcceptMutationVariables>(acceptMutation, {
     update: (cache) => apolloCacheEvictQuery(cache, 'jobs'),
   });
   const [rejectJob] = useMutation<IRejectMutation, IRejectMutationVariables>(rejectMutation, {
     update: (cache) => apolloCacheEvictQuery(cache, 'jobs'),
   });
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -75,10 +78,10 @@ export default function JobMenu({ id }: IProps) {
         }}
       >
         <MenuItem onClick={onAccept}>
-          Accept
+          {t('main:accept')}
         </MenuItem>
         <MenuItem onClick={onReject}>
-          Reject
+          {t('main:reject')}
         </MenuItem>
       </Menu>
     </Box>

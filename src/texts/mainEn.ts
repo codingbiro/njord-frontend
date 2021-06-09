@@ -1,0 +1,25 @@
+const mainEn = {
+  loginTitle: 'Company Login',
+  loginError: 'Invalid email or password.',
+  signIn: 'Sign In',
+  email: 'Email',
+  password: 'Password',
+  logout: 'Logout',
+  accept: 'Accept',
+  reject: 'Reject',
+  all: 'All',
+  pending: 'Pending',
+  rejected: 'Rejected',
+  user: 'User',
+  boatType: 'Boat Type',
+  service: 'Service',
+  location: 'Boat Location',
+  dateCreated: 'Date Created',
+  dueDate: 'Due Date',
+  jobType: 'Job Type',
+  emergency: 'Emergency',
+  normal: 'Normal',
+  noData: 'No Data',
+};
+
+export default mainEn;

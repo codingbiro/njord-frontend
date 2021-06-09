@@ -14,6 +14,7 @@ import {
   TableRow,
 } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 
 import {
   IJobsQuery, IJobsQueryVariables, ILocationsQuery, jobsQuery, locationsQuery,
@@ -67,6 +68,8 @@ const rowStyles: Css = {
 export default function JobsPage() {
   const [rejected, setRejected] = useState(false);
   const [location, setLocation] = useState('');
+  const { t } = useTranslation();
+
   const { data, loading } = useQuery<IJobsQuery, IJobsQueryVariables>(jobsQuery, {
     variables: { rejected, location }, pollInterval,
   });
@@ -96,7 +99,7 @@ export default function JobsPage() {
           renderValue={renderSelectedValue}
         >
           <MenuItem value="">
-            <em>All</em>
+            <em>{t('main:all')}</em>
           </MenuItem>
           {locationsData.locations.map(({ boatLocation }) => (
             <MenuItem key={boatLocation} value={boatLocation}>{boatLocation}</MenuItem>
@@ -109,19 +112,19 @@ export default function JobsPage() {
             <TableRow>
               <TableCell align="center" colSpan={!rejected ? 8 : 7} padding="none">
                 <Box display="flex" justifyContent="space-around" width="100%">
-                  <Box sx={switcherStyles(!rejected)} onClick={() => setRejected(false)}>Pending</Box>
-                  <Box sx={switcherStyles(rejected)} onClick={() => setRejected(true)}>Rejected</Box>
+                  <Box sx={switcherStyles(!rejected)} onClick={() => setRejected(false)}>{t('main:pending')}</Box>
+                  <Box sx={switcherStyles(rejected)} onClick={() => setRejected(true)}>{t('main:rejected')}</Box>
                 </Box>
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell align="center">User</TableCell>
-              <TableCell align="center">Boat&nbsp;Type</TableCell>
-              <TableCell align="center">Service</TableCell>
-              <TableCell align="center">Boat&nbsp;Location</TableCell>
-              <TableCell align="center">Date&nbsp;Created</TableCell>
-              <TableCell align="center">Due&nbsp;Date</TableCell>
-              <TableCell align="center">Job&nbsp;Type</TableCell>
+              <TableCell align="center">{t('main:user')}</TableCell>
+              <TableCell align="center">{t('main:boatType')}</TableCell>
+              <TableCell align="center">{t('main:service')}</TableCell>
+              <TableCell align="center">{t('main:location')}</TableCell>
+              <TableCell align="center">{t('main:dateCreated')}</TableCell>
+              <TableCell align="center">{t('main:dueDate')}</TableCell>
+              <TableCell align="center">{t('main:jobType')}</TableCell>
               {!rejected && (<TableCell align="center">&nbsp;</TableCell>)}
             </TableRow>
           </TableHead>
@@ -141,7 +144,7 @@ export default function JobsPage() {
                 <TableCell align="center">{formatStringDate(job.dueDate)}</TableCell>
                 <TableCell align="center">
                   <Chip
-                    label={job.isEmergency ? 'Emergency' : 'Normal'}
+                    label={job.isEmergency ? t('main:emergency') : t('main:normal')}
                     sx={chipStyles(job.isEmergency)}
                   />
                 </TableCell>
@@ -155,7 +158,7 @@ export default function JobsPage() {
             {data.jobs.length === 0 && (
               <TableRow>
                 <TableCell align="center" colSpan={7}>
-                  No Data
+                  {t('main:noData')}
                 </TableCell>
               </TableRow>
             )}

@@ -5,6 +5,7 @@ import {
   Box, Button, experimentalStyled as styled, Paper, TextField, Typography,
 } from '@material-ui/core';
 import { Form, Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 
 import { login } from 'src/requests/auth';
 import { userVar } from 'src/utils/cache';
@@ -53,6 +54,7 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const history = useHistory();
   const user = useReactiveVar(userVar);
+  const { t } = useTranslation();
 
   useEffect(() => user && history.push('/jobs'), [history, user]);
 
@@ -62,18 +64,18 @@ export default function LoginPage() {
         <Logo />
       </Box>
       <Typography sx={titleStyles}>
-        Company Login
+        {t('main:loginTitle')}
       </Typography>
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={async (values, { setSubmitting }) => {
           try {
             if (!values.email || !values.password) {
-              throw Error('Invalid email or password.');
+              throw Error(t('main:loginError'));
             }
             const response = await login({ email: values.email, password: values.password });
             if (!response) {
-              throw Error('Invalid email or password.');
+              throw Error(t('main:loginError'));
             }
             const { token, ...userData } = response.data;
             localStorage.setItem('uToken', token);
@@ -94,7 +96,7 @@ export default function LoginPage() {
         }) => (
           <StyledForm onSubmit={handleSubmit}>
             <TextField
-              label="Email"
+              label={t('main:email')}
               variant="standard"
               type="email"
               name="email"
@@ -104,7 +106,7 @@ export default function LoginPage() {
               required
             />
             <TextField
-              label="Password"
+              label={t('main:password')}
               variant="standard"
               type="password"
               name="password"
@@ -114,7 +116,7 @@ export default function LoginPage() {
               required
             />
             <Button variant="contained" type="submit" disabled={isSubmitting} sx={buttonStyles} disableElevation>
-              Sign In
+              {t('main:signIn')}
             </Button>
             {error && <Typography color="error" sx={{ paddingTop: 2 }}>{error}</Typography>}
           </StyledForm>

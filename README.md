@@ -1,46 +1,44 @@
-# Getting Started with Create React App
+# Njord Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) using the Typescript template, since almost everything is written in Typescript.
 
-## Available Scripts
+The purpose of this project is to showcase some of the popular libraries within a simple application. The app handles an user login, a listing of items from the backend and some data modifying functions.
+
+## Install and run
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm i` and ### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The application has linting set up. Usage:
+### `npm run eslint`
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## About the chosen libraries
 
-### `npm run build`
+### Routing
+For routing, this project uses `react-router-dom` which is React's preferred library for routing.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### State management
+For state management, this project uses `apollo`. Local state management has recently been added to this library, but it looks like a solid choice for this project.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Forms
+For forms, there is a library used called Formik. While this project is not using too many forms, Formik can save a lot of time in larger projects.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### UI components
+For the UI components, this projects uses Material UI's Pre-released version (5x alpha) which uses `@emotion` for styling and seems to be a solid library for the UI.
 
-### `npm run eject`
+### Backend communcation
+For HTTP requests the app uses `axios` and `apollo-link-rest`. Apollo is mainly used for GraphQL and most of my projects are using it, so giving Apollo a try in the REST world was a nice experience and it works well with TypeScript also.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Cache management
+The cache is managed by the **Apollo Client**.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Supporting multiple languages
+For supporting multiple languages, **i18next** is being used and is set up currently with one languague (English).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Environment variables
+For local development, there is an `.env` file in the root directory to maintain the needed variables.
