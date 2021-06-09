@@ -13,8 +13,9 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The application has linting set up. Usage:
-### `npm run eslint`
+### Linting
+The application has linting set up. Usage:\
+`npm run eslint`
 
 
 ## About the chosen libraries
