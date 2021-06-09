@@ -42,3 +42,11 @@ For supporting multiple languages, **i18next** is being used and is set up curre
 
 ### Environment variables
 For local development, there is an `.env` file in the root directory to maintain the needed variables.
+
+## Functionality overview
+
+- **Login page**: log in with email and password
+- **Jobs page**: view *pending* and *rejected* jobs, and filter by location
+- **Jobs page/ Selected job**: accept/reject the job
+- **Header menu**: ability to log out
+- **Drawer menu**: accessible from the left of the header, contains only the Jobs page as an actual link
