@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useReactiveVar } from '@apollo/client';
+import { useApolloClient, useReactiveVar } from '@apollo/client';
 import {
   Box, Button, experimentalStyled as styled, Paper, TextField, Typography,
 } from '@material-ui/core';
@@ -11,6 +12,7 @@ import { login } from 'src/requests/auth';
 import { userVar } from 'src/utils/cache';
 import Css from 'src/utils/css';
 import Logo from 'src/components/Logo';
+import { createLink } from 'src/App';
 
 const containerStyles: Css = {
   backgroundColor: 'rgba(255, 255, 255, 0.75)',
@@ -55,6 +57,7 @@ export default function LoginPage() {
   const history = useHistory();
   const user = useReactiveVar(userVar);
   const { t } = useTranslation();
+  const client = useApolloClient();
 
   useEffect(() => user && history.push('/jobs'), [history, user]);
 
@@ -79,6 +82,7 @@ export default function LoginPage() {
             }
             const { token, ...userData } = response.data;
             localStorage.setItem('uToken', token);
+            client.setLink(createLink());
             userVar(userData);
             history.push('/jobs');
           } catch (e) {
